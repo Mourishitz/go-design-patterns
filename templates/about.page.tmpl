@@ -1,0 +1,38 @@
+{{template "base" .}}
+
+{{define "content"}}
+
+<div class="mt-16">
+    <section>
+        <h1 class="text-center text-2xl font-bold text-blue-900">What is this?</h1>
+        <p class="px-24">
+            This is a simple web application built with Go, TailwindCSS and HTML templates.
+            The main objective of this project is to create a simple, yet functional and well structured code
+            that follow strict guidelines and design patterns, as well as implementing Go's features such as 
+            pointers, structs, and more.
+        </p>
+    </section>
+
+    <section class="mt-8">
+        <h1 class="text-center text-2xl font-bold text-blue-900">Why Go?</h1>
+        <p class="px-24">
+            Go has been pointed out as one of the best languages for web development, and it's easy to see why.
+            It uses a simple syntax, has a great performance, and it's easy to learn. One of my favorite aspects
+            of Go is the fact that it's a compiled language, which means that it's faster than interpreted languages.
+            Also, Go does not trade off performance and low-level control for simplicity and ease of use, but still
+            is a very simple language and can be used in so many ways.
+        </p>
+    </section>
+
+    <section class="mt-8">
+      <h1 class="text-center text-2xl font-bold text-blue-900">Show me the code!</h1>
+      <p class="px-24">
+          Even if you're not into Go, I encourage you to take a look at the code. It ain't much, but it's honest work.
+          This project does not use any framework, only Go standard library and packages like <a class="text-purple-900" href="github.com/go-chi/chi" target="_blank">Chi</a>.
+          Fell free to fork this repository and play around with it, also, if you have any suggestions or improvements, feel free to open an issue or a pull request on
+          <a class="text-purple-900 underline font-bold" href="github.com/Mourishitz" target="_blank">this repository</a>.
+      </p>
+    </section>
+</div>
+{{end}}
+
