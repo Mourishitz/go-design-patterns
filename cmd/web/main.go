@@ -18,6 +18,7 @@ type application struct {
 
 type appConfig struct {
 	useCache bool
+	dsn      string
 }
 
 func main() {
@@ -27,6 +28,8 @@ func main() {
 
 	flag.BoolVar(&app.config.useCache, "cache", false, "Use a template cache")
 	flag.Parse()
+
+	flag.StringVar(&app.config.dsn, "dsn", "mariadb:myverysecret@tcp(localhost:3306)")
 
 	srv := &http.Server{
 		Addr:              port,
