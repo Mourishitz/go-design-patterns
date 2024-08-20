@@ -1,13 +1,14 @@
 package main
 
 import (
-	"dpatterns/models"
 	"flag"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"time"
+
+	"dpatterns/configuration"
 )
 
 const port = ":4000"
@@ -15,7 +16,7 @@ const port = ":4000"
 type application struct {
 	templateMap map[string]*template.Template
 	config      appConfig
-	Models      models.Models
+	App         *configuration.Application
 }
 
 type appConfig struct {
@@ -37,7 +38,7 @@ func main() {
 		log.Panic(err)
 	}
 
-	app.Models = *models.New(db)
+	app.App = configuration.New(db)
 
 	srv := &http.Server{
 		Addr:              port,

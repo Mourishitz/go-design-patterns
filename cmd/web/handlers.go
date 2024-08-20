@@ -1,9 +1,10 @@
 package main
 
 import (
-	"dpatterns/pets"
 	"fmt"
 	"net/http"
+
+	"dpatterns/pets"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/tsawler/toolbox"
@@ -54,8 +55,7 @@ func (app *application) CreateCatFromAbstractFactory(w http.ResponseWriter, r *h
 
 func (app *application) GetAllDogBreedsJSON(w http.ResponseWriter, r *http.Request) {
 	var t toolbox.Tools
-	dogBreeds, err := app.Models.DogBreed.All()
-
+	dogBreeds, err := app.App.Models.DogBreed.All()
 	if err != nil {
 		_ = t.ErrorJSON(w, err, http.StatusInternalServerError)
 		return
