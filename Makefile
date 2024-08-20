@@ -9,4 +9,4 @@ run-build:
 	./web -cache
 
 test:
-	go test -v ./cmd/web
+	go test -v -count=1 ./cmd/web
