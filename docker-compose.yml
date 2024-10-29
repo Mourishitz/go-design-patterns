@@ -1,9 +1,8 @@
-version: '3'
+version: "3"
 
 services:
-
   mariadb:
-    image: 'mariadb:10'
+    image: "mariadb:10"
     ports:
       - "3306:3306"
     restart: always
@@ -16,6 +15,15 @@ services:
       - ./db-data/mariadb:/var/lib/mysql
       - ./sql/breeders_mysql.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
+  go-breeders:
+    image: "ghcr.io/mourishitz/go-breeders-remote:latest"
+    ports:
+      - "8081:8081"
+    restart: always
+    environment:
+      DSN: "mariadb:myverysecretpassword@tcp(mariadb:3306)/breeders?parseTime=true&tls=false&collation=utf8_unicode_ci&timeout=5s"
+    depends_on:
+      - mariadb
 #  postgres:
 #    image: 'postgres:14'
 #    restart: always
@@ -32,4 +40,3 @@ services:
 #    volumes:
 #      - ./db-data/postgres:/var/lib/postgresql/data
 #      - ./sql/postgres.sql:/docker-entrypoint-initdb.d/create_tables.sql
-
