@@ -8,8 +8,29 @@
             <hr>
             <h2 class="text-xl text-bold text-center">Factory</h2>
             <div class="flex justify-center gap-8 m-4">
-                <a href="javascript:void(0);" id="dog-factory-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Get a dog from factory</a>
-                <a href="javascript:void(0);" id="cat-factory-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Get a cat from factory</a>
+                <a href="javascript:void(0);" 
+                    hx-get="/api/dog-from-factory"
+                    hx-target="#factory-output"
+                    hx-swap="innerHTML"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Get a dog from factory
+                </a>
+                <a
+                    href="javascript:void(0);" 
+                    hx-on:click="document.getElementById('factory-output').innerText = 'Nothing received yet...';"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Clear Data 
+                </a>
+                <a href="javascript:void(0);" 
+                    hx-get="/api/cat-from-factory"
+                    hx-target="#factory-output"
+                    hx-swap="innerHTML"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Get a cat from factory
+                </a>
             </div>
             <div class="m-8 mb-4">
                 <pre id="factory-output" class="border-2 rounded border-black p-8"><span>Nothing received yet...</span></pre>
@@ -20,8 +41,29 @@
 
             <h2 class="text-xl text-bold text-center">Abstract Factory</h2>
             <div class="flex justify-center gap-8 m-4">
-                <a href="javascript:void(0);" id="dog-abstract-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Get a dog from abstract factory</a>
-                <a href="javascript:void(0);" id="cat-abstract-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Get a cat from abstract factory</a>
+                <a href="javascript:void(0);" 
+                    hx-get="/api/dog-from-abstract-factory"
+                    hx-target="#abs-factory-output"
+                    hx-swap="innerHTML"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Get a dog from abstract factory
+                </a>
+                <a
+                    href="javascript:void(0);" 
+                    hx-on:click="document.getElementById('abs-factory-output').innerText = 'Nothing received yet...';"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Clear Data 
+                </a>
+                <a href="javascript:void(0);" 
+                    hx-get="/api/cat-from-abstract-factory"
+                    hx-target="#abs-factory-output"
+                    hx-swap="innerHTML"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Get a cat from abstract factory
+                </a>
             </div>
             <div class="m-8 mb-4">
                 <pre id="abs-factory-output" class="border-2 rounded border-black p-8"><span>Nothing received yet...</span></pre>
@@ -33,8 +75,29 @@
 
             <h2 class="text-xl text-bold text-center">Builder</h2>
             <div class="flex justify-center gap-8 m-4">
-                <a href="javascript:void(0);" id="dog-builder-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Build Dog</a>
-                <a href="javascript:void(0);" id="cat-builder-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Build Cat</a>
+                <a href="javascript:void(0);" 
+                    hx-get="/api/dog-from-builder"
+                    hx-target="#builder-output"
+                    hx-swap="innerHTML"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Get a dog from builder
+                </a>
+                <a
+                    href="javascript:void(0);" 
+                    hx-on:click="document.getElementById('builder-output').innerText = 'Nothing received yet...';"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Clear Data 
+                </a>
+                <a href="javascript:void(0);" 
+                    hx-get="/api/cat-from-builder"
+                    hx-target="#builder-output"
+                    hx-swap="innerHTML"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                    Get a cat from builder 
+                </a>
             </div>
             <div class="m-8 mb-4">
                 <pre id="builder-output" class="border-2 rounded border-black p-8"><span>Nothing received yet...</span></pre>
@@ -49,92 +112,9 @@
 
 {{define "script"}}
 <script>
-let dogFactoryButton = document.getElementById("dog-factory-btn");
-let catFactoryButton = document.getElementById("cat-factory-btn");
-let factoryOutput = document.getElementById("factory-output");
-
-let dogAbstractButton = document.getElementById("dog-abstract-btn");
-let catAbstractButton = document.getElementById("cat-abstract-btn");
-let absFactoryOutput = document.getElementById("abs-factory-output");
-
-let dogBuilderButton = document.getElementById("dog-builder-btn");
-let catBuilderButton = document.getElementById("cat-builder-btn");
-let builderOutput = document.getElementById("builder-output");
-
-document.addEventListener("DOMContentLoaded", function() {
-    dogFactoryButton.addEventListener("click", function() {
-        fetch("/api/dog-from-factory", {method: 'get'})
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                factoryOutput.innerHTML = data.error;
-            } else {
-                factoryOutput.innerHTML = JSON.stringify(data, undefined, 4);
-            }
-        })
+    document.addEventListener("htmx:afterSwap", function(event){
+        event.target.innerText = JSON.stringify(JSON.parse(event.target.innerText), undefined, 4);
     })
-
-    catFactoryButton.addEventListener("click", function() {
-        fetch("/api/cat-from-factory", {method: 'get'})
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                factoryOutput.innerHTML = data.error;
-            } else {
-                factoryOutput.innerHTML = JSON.stringify(data, undefined, 4);
-            }
-        })
-    })
-
-    dogAbstractButton.addEventListener("click", function() {
-        fetch("/api/dog-from-abstract-factory", {method: 'get'})
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                absFactoryOutput.innerHTML = data.error;
-            } else {
-                absFactoryOutput.innerHTML = JSON.stringify(data, undefined, 4);
-            }
-        })
-    })
-
-    catAbstractButton.addEventListener("click", function() {
-        fetch("/api/cat-from-abstract-factory", {method: 'get'})
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                absFactoryOutput.innerHTML = data.error;
-            } else {
-                absFactoryOutput.innerHTML = JSON.stringify(data, undefined, 4);
-            }
-        })
-    })
-
-    dogBuilderButton.addEventListener("click", function() {
-        fetch("/api/dog-from-builder", {method: 'get'})
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                builderOutput.innerHTML = data.error;
-            } else {
-                builderOutput.innerHTML = JSON.stringify(data, undefined, 4);
-            }
-        })
-    })
-
-    catBuilderButton.addEventListener("click", function() {
-        fetch("/api/cat-from-builder", {method: 'get'})
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.error) {
-                builderOutput.innerHTML = data.error;
-            } else {
-                builderOutput.innerHTML = JSON.stringify(data, undefined, 4);
-            }
-        })
-    })
-})
-
 </script>
 
 {{end}}
